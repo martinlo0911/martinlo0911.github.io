@@ -1,0 +1,44 @@
+/* Shared look for every app's pages (14/Oct/2026). */
+:root {
+  --ink: #1F1A17;
+  --muted: #5E5751;
+  --bg: #F6F4EF;
+  --card: #FFFFFF;
+  --line: #E6E1D8;
+  --accent: #1E6B5A;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #EDEAE5;
+    --muted: #A9A29A;
+    --bg: #141714;
+    --card: #1E221F;
+    --line: #2E3430;
+    --accent: #5BBFA4;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 17px/1.65 -apple-system, BlinkMacSystemFont, "PingFang HK", "Noto Sans HK", "Helvetica Neue", sans-serif;
+}
+main { max-width: 760px; margin: 0 auto; padding: 40px 20px 64px; }
+h1 { font-size: 30px; line-height: 1.25; margin: 0 0 6px; }
+h2 { font-size: 21px; margin: 36px 0 8px; }
+h3 { font-size: 17px; margin: 24px 0 4px; }
+p, li { color: var(--ink); }
+.muted { color: var(--muted); font-size: 15px; }
+a { color: var(--accent); }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin: 16px 0;
+}
+.card a.title { font-size: 20px; font-weight: 700; text-decoration: none; }
+.lang { display: flex; gap: 14px; margin: 18px 0 8px; font-size: 15px; }
+hr { border: none; border-top: 1px solid var(--line); margin: 40px 0; }
+footer { margin-top: 48px; font-size: 14px; color: var(--muted); }
