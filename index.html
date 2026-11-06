@@ -1,22 +1,184 @@
 <!doctype html>
-<html lang="zh-HK">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[ZHAOYANG LU] — Apps</title>
+<title>ZHAOYANG LU — iPhone apps</title>
+<meta name="description" content="Small iPhone apps, made with care: Hakobox and CantoFamily.">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Homepage only (06/Nov/2026, design A). Support pages keep style.css alone. */
+:root { --chip: #E4EFEB; --chip-ink: #14493D; --switch: #ECE8E0; --switch-on: #FFFFFF; }
+@media (prefers-color-scheme: dark) {
+  :root { --chip: #1F3530; --chip-ink: #A9E3D2; --switch: #262B27; --switch-on: #3A413C; }
+}
+main.home { max-width: 1040px; padding-top: 28px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.brand { font-weight: 700; font-size: 17px; letter-spacing: 0.04em; }
+.langs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--switch); border-radius: 999px; padding: 4px; }
+.langs button {
+  border: none; border-radius: 999px; padding: 8px 14px; min-height: 36px;
+  font: inherit; font-size: 14px; color: var(--muted); background: transparent; cursor: pointer;
+}
+.langs button[aria-pressed="true"] { background: var(--switch-on); color: var(--ink); font-weight: 700; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+.hero { padding: 80px 0 48px; max-width: 760px; }
+.hero h1 { font-size: clamp(34px, 6vw, 52px); line-height: 1.12; letter-spacing: -0.01em; margin: 0; }
+.hero p { font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); margin: 18px 0 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; padding: 0; list-style: none; }
+.chips li { background: var(--chip); color: var(--chip-ink); border-radius: 999px; padding: 8px 16px; font-size: 15px; }
+.apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.app { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+.app-head { display: flex; gap: 18px; align-items: center; }
+.app-head img { width: 80px; height: 80px; border-radius: 18px; border: 1px solid var(--line); }
+.app h2 { margin: 0; font-size: 26px; }
+.app h2 a { color: var(--ink); text-decoration: none; }
+.app .kind { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+.app .desc { margin: 0; }
+.app ul { margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.8; }
+.app .links { display: flex; gap: 18px; flex-wrap: wrap; margin-top: auto; font-size: 15px; }
+.foot { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
 </head>
 <body>
-<main>
-  <h1>[ZHAOYANG LU]</h1>
-  <p class="muted">iPhone apps</p>
+<main class="home">
 
-  <div class="card">
-    <a class="title" href="cantofamily/">叫乜好 CantoFamily</a>
-    <p>廣東話親戚稱呼計算機，有粵拼同讀音。<br>Cantonese family terms, with Jyutping and pronunciation.</p>
-  </div>
+  <header class="top">
+    <div class="brand">ZHAOYANG LU</div>
+    <nav class="langs" aria-label="Language">
+      <button type="button" data-lang="en" lang="en">English</button>
+      <button type="button" data-lang="zh" lang="zh-HK">中文</button>
+      <button type="button" data-lang="ja" lang="ja">日本語</button>
+      <button type="button" data-lang="de" lang="de">Deutsch</button>
+    </nav>
+  </header>
 
-  <footer>Contact: <a href="mailto:martinlo0911@yahoo.com">martinlo0911@yahoo.com</a></footer>
+  <section class="hero">
+    <h1 data-t="h1">Small iPhone apps, made with care.</h1>
+    <p data-t="sub">Simple and easy to use. Your data stays on your iPhone.</p>
+    <ul class="chips">
+      <li data-t="chip1">No sign-up</li>
+      <li data-t="chip2">Data stays on your iPhone</li>
+      <li data-t="chip3">Free to download</li>
+    </ul>
+  </section>
+
+  <section class="apps">
+    <article class="app">
+      <div class="app-head">
+        <img src="images/hakobox.png" alt="">
+        <div>
+          <h2><a href="hakobox/">Hakobox</a></h2>
+          <p class="kind" data-t="hakoKind">Budget &amp; Expense</p>
+        </div>
+      </div>
+      <p class="desc" data-t="hakoDesc">Track spending and budgets by account and category.</p>
+      <ul>
+        <li data-t="hako1">Every currency, one total</li>
+        <li data-t="hako2">Budgets that show what’s left</li>
+        <li data-t="hako3">In English, Japanese, German and Chinese</li>
+      </ul>
+      <p class="links">
+        <a href="hakobox/" data-t="support">Support</a>
+        <a href="hakobox/privacy.html" data-t="privacy">Privacy Policy</a>
+      </p>
+    </article>
+
+    <article class="app">
+      <div class="app-head">
+        <img src="images/cantofamily.png" alt="">
+        <div>
+          <h2><a href="cantofamily/" data-t="cantoName">CantoFamily</a></h2>
+          <p class="kind" data-t="cantoKind">Cantonese family terms</p>
+        </div>
+      </div>
+      <p class="desc" data-t="cantoDesc">Work out what to call any relative in Cantonese, with Jyutping and pronunciation.</p>
+      <ul>
+        <li data-t="canto1">Type the relationship, get the term</li>
+        <li data-t="canto2">Jyutping and pronunciation</li>
+        <li data-t="canto3">Browse every term</li>
+      </ul>
+      <p class="links">
+        <a href="cantofamily/" data-t="support">Support</a>
+        <a href="cantofamily/privacy.html" data-t="privacy">Privacy Policy</a>
+      </p>
+    </article>
+  </section>
+
+  <footer class="foot">
+    <span><span data-t="ask">Questions or ideas? Email</span> <a href="mailto:martinlo0911@yahoo.com">martinlo0911@yahoo.com</a></span>
+    <span>© 2026 ZHAOYANG LU</span>
+  </footer>
+
 </main>
+
+<script>
+// Language: the visitor's own pick, else their phone / computer language, else English (06/Nov/2026).
+// English is written in the page itself, so it also shows without JavaScript.
+var TEXT = {
+  zh: {
+    h1: '用心製作的 iPhone App', sub: '簡單易用，資料留在你的 iPhone。',
+    chip1: '毋須註冊', chip2: '資料留在 iPhone', chip3: '免費下載',
+    support: '支援', privacy: '私隱政策', ask: '有問題或建議？歡迎電郵：',
+    hakoKind: '記賬及預算', hakoDesc: '按戶口及分類記錄收支和預算。',
+    hako1: '多種貨幣，自動換算總額', hako2: '每月預算，一眼看到剩餘', hako3: '支援中文、English、日本語、Deutsch',
+    cantoName: '叫乜好', cantoKind: '廣東話親戚稱呼', cantoDesc: '廣東話親戚稱呼計算機，附粵拼及讀音。',
+    canto1: '輸入關係，即知稱呼', canto2: '粵拼及讀音', canto3: '瀏覽所有稱呼'
+  },
+  ja: {
+    h1: 'ていねいに作った、小さな iPhone アプリ。', sub: 'シンプルで使いやすく、データはあなたの iPhone に保存されます。',
+    chip1: '登録不要', chip2: 'データは iPhone に保存', chip3: '無料ダウンロード',
+    support: 'サポート', privacy: 'プライバシーポリシー', ask: 'ご質問・ご意見はメールで：',
+    hakoKind: '家計簿・予算', hakoDesc: '口座とカテゴリごとに、支出と予算を記録。',
+    hako1: 'すべての通貨を、ひとつの合計に', hako2: '予算の残りがひと目でわかる', hako3: '日本語・英語・ドイツ語・中国語に対応',
+    cantoName: 'CantoFamily', cantoKind: '広東語の親族呼称', cantoDesc: '親戚の呼び方を広東語で調べられます。粤拼（ジュッピン）と発音つき。',
+    canto1: '関係を入力するだけで呼び方がわかる', canto2: '粤拼と発音', canto3: 'すべての呼称を一覧表示'
+  },
+  de: {
+    h1: 'Kleine iPhone-Apps, mit Sorgfalt gemacht.', sub: 'Einfach zu bedienen. Deine Daten bleiben auf deinem iPhone.',
+    chip1: 'Ohne Registrierung', chip2: 'Daten bleiben auf dem iPhone', chip3: 'Kostenlos laden',
+    support: 'Support', privacy: 'Datenschutzvereinbarung', ask: 'Fragen oder Ideen? Schreib uns:',
+    hakoKind: 'Haushaltsbuch & Budget', hakoDesc: 'Ausgaben und Budgets nach Konto und Kategorie erfassen.',
+    hako1: 'Alle Währungen, eine Summe', hako2: 'Budgets zeigen, was übrig ist', hako3: 'Auf Deutsch, Englisch, Japanisch und Chinesisch',
+    cantoName: 'CantoFamily', cantoKind: 'Kantonesische Verwandtschaftsbegriffe', cantoDesc: 'Wie nennt man Verwandte auf Kantonesisch? Mit Jyutping und Aussprache.',
+    canto1: 'Beziehung eingeben, Bezeichnung erhalten', canto2: 'Jyutping und Aussprache', canto3: 'Alle Begriffe durchsuchen'
+  }
+};
+var HTML_LANG = { en: 'en', zh: 'zh-HK', ja: 'ja', de: 'de' };
+var nodes = document.querySelectorAll('[data-t]');
+var english = [];
+for (var i = 0; i < nodes.length; i++) english.push(nodes[i].textContent);
+
+function apply(lang) {
+  var t = TEXT[lang];
+  for (var i = 0; i < nodes.length; i++) {
+    nodes[i].textContent = t ? t[nodes[i].getAttribute('data-t')] : english[i];
+  }
+  document.documentElement.lang = HTML_LANG[lang];
+  var buttons = document.querySelectorAll('.langs button');
+  for (var j = 0; j < buttons.length; j++) {
+    buttons[j].setAttribute('aria-pressed', buttons[j].getAttribute('data-lang') === lang ? 'true' : 'false');
+  }
+}
+
+function systemLang() {
+  var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+  for (var i = 0; i < list.length; i++) {
+    var code = String(list[i]).toLowerCase().split('-')[0];
+    if (code === 'en' || TEXT[code]) return code;
+  }
+  return 'en';
+}
+
+var saved = null;
+try { saved = localStorage.getItem('siteLang'); } catch (e) {}
+apply(HTML_LANG[saved] ? saved : systemLang());
+
+document.querySelector('.langs').addEventListener('click', function (e) {
+  var lang = e.target.getAttribute && e.target.getAttribute('data-lang');
+  if (!lang) return;
+  apply(lang);
+  try { localStorage.setItem('siteLang', lang); } catch (e2) {}
+});
+</script>
 </body>
 </html>
