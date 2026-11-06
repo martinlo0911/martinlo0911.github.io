@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pet ID · Tailnest</title>
+<!--
+  Tailnest pet card page (16/Oct/2026). The pet's details travel inside the link itself, after
+  "#", compressed — a browser never sends that part to the server, so nothing is stored here.
+  This address is printed into every QR code: never move or rename this page.
+-->
+<style>
+:root { --ink:#3d2a1a; --muted:#7a5e47; --bg:#fbf8f4; --card:#fff; --line:#e9dfd3; --accent:#a06a3f; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#f1e7dc; --muted:#c3ab95; --bg:#1b1612; --card:#26201a; --line:#3a2f26; --accent:#d9a066; }
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink);
+  font:17px/1.6 -apple-system, BlinkMacSystemFont, "PingFang HK", "Hiragino Sans", "Noto Sans", "Helvetica Neue", sans-serif; }
+main { max-width:520px; margin:0 auto; padding:40px 20px 56px; }
+.avatar { width:96px; height:96px; border-radius:50%; background:var(--accent); color:#fff; margin:0 auto 12px;
+  display:flex; align-items:center; justify-content:center; font-size:44px; }
+h1 { text-align:center; font-size:30px; margin:0; }
+.sub { text-align:center; color:var(--muted); margin:2px 0 22px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:6px 16px; margin-bottom:16px; }
+.row { padding:10px 0; border-bottom:1px solid var(--line); }
+.row:last-child { border-bottom:0; }
+.label { font-size:13px; color:var(--muted); }
+.value { font-weight:600; white-space:pre-line; }
+.call { display:block; text-align:center; background:var(--accent); color:#fff; text-decoration:none; font-weight:600;
+  border-radius:14px; padding:15px; font-size:18px; margin:6px 0 16px; }
+.note { text-align:center; color:var(--muted); font-size:13px; }
+.foot { text-align:center; margin-top:28px; font-size:14px; }
+.foot a { color:var(--accent); }
+.error { text-align:center; color:var(--muted); margin-top:80px; }
+</style>
+</head>
+<body>
+<main id="app"><p class="error" id="loading">…</p></main>
+<script>
+(function () {
+  // Labels in the scanner's own language.
+  var T = {
+    en:   { found:"If found, please call my human.", call:"Call the owner", owner:"Owner", area:"Area", allergies:"Allergies",
+            meds:"Long-term medication", vet:"Vet", vaccines:"Vaccines", years:"{n} years old", cat:"Cat", dog:"Dog", pet:"Pet",
+            note:"These details are only in this link. Nothing is stored on any server.", made:"Keep your pet's records with Tailnest",
+            bad:"This card link is incomplete. Please scan the QR code again." },
+    "zh-HK": { found:"如果你發現我，請致電我的主人。", call:"致電主人", owner:"主人", area:"地區", allergies:"過敏",
+            meds:"長期藥物", vet:"獸醫", vaccines:"疫苗", years:"{n} 歲", cat:"貓", dog:"狗", pet:"寵物",
+            note:"資料只在這條連結之內，沒有儲存在任何伺服器。", made:"用 Tailnest 記錄你的寵物",
+            bad:"這條連結不完整，請再掃描一次 QR code。" },
+    "zh-TW": { found:"如果你發現我，請打電話給我的主人。", call:"打電話給主人", owner:"主人", area:"地區", allergies:"過敏",
+            meds:"長期用藥", vet:"獸醫", vaccines:"疫苗", years:"{n} 歲", cat:"貓", dog:"狗", pet:"寵物",
+            note:"資料只在這個連結裡，不會儲存在任何伺服器。", made:"用 Tailnest 記錄你的寵物",
+            bad:"這個連結不完整，請再掃描一次 QR code。" },
+    ja:   { found:"見つけたら、飼い主に電話してください。", call:"飼い主に電話", owner:"飼い主", area:"地域", allergies:"アレルギー",
+            meds:"継続中の薬", vet:"動物病院", vaccines:"ワクチン", years:"{n}歳", cat:"猫", dog:"犬", pet:"ペット",
+            note:"情報はこのリンクの中だけにあり、サーバーには保存されません。", made:"Tailnest でペットの記録を",
+            bad:"リンクが不完全です。もう一度 QR コードを読み取ってください。" },
+    de:   { found:"Gefunden? Bitte ruf meinen Menschen an.", call:"Besitzer anrufen", owner:"Besitzer", area:"Gegend", allergies:"Allergien",
+            meds:"Dauermedikation", vet:"Tierarzt", vaccines:"Impfungen", years:"{n} Jahre", cat:"Katze", dog:"Hund", pet:"Haustier",
+            note:"Diese Angaben stehen nur in diesem Link. Nichts wird auf einem Server gespeichert.", made:"Halte die Daten deines Tieres mit Tailnest fest",
+            bad:"Dieser Link ist unvollständig. Bitte scanne den QR-Code erneut." },
+    fr:   { found:"Si vous me trouvez, appelez mon humain.", call:"Appeler le propriétaire", owner:"Propriétaire", area:"Secteur", allergies:"Allergies",
+            meds:"Traitement de longue durée", vet:"Vétérinaire", vaccines:"Vaccins", years:"{n} ans", cat:"Chat", dog:"Chien", pet:"Animal",
+            note:"Ces informations se trouvent uniquement dans ce lien. Rien n'est enregistré sur un serveur.", made:"Suivez votre animal avec Tailnest",
+            bad:"Ce lien est incomplet. Scannez à nouveau le code QR." }
+  };
+  function pick() {
+    var langs = navigator.languages || [navigator.language || "en"];
+    for (var i = 0; i < langs.length; i++) {
+      var l = langs[i].toLowerCase();
+      if (l.indexOf("zh") === 0) {
+        if (l.indexOf("hk") > -1 || l.indexOf("mo") > -1) return T["zh-HK"];
+        if (l.indexOf("tw") > -1 || l.indexOf("hant") > -1) return T["zh-TW"];
+        return T["zh-TW"];
+      }
+      var base = l.split("-")[0];
+      if (T[base]) return T[base];
+    }
+    return T.en;
+  }
+  var t = pick();
+  var app = document.getElementById("app");
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;   // never innerHTML: the link's content is untrusted
+    return e;
+  }
+  function row(card, label, value) {
+    if (!value) return;
+    var r = el("div", "row");
+    r.appendChild(el("div", "label", label));
+    r.appendChild(el("div", "value", value));
+    card.appendChild(r);
+  }
+  function fail() { app.textContent = ""; app.appendChild(el("p", "error", t.bad)); }
+
+  async function decode(hash) {
+    var b64 = hash.replace(/-/g, "+").replace(/_/g, "/");
+    while (b64.length % 4) b64 += "=";
+    var bin = atob(b64), bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+    var text = await new Response(stream).text();
+    return JSON.parse(text);
+  }
+
+  function render(d) {
+    app.textContent = "";
+    // Other animals (07/Nov/2026): "s" is "other" and "sn" carries the typed animal.
+    var kind = d.s === "dog" ? t.dog : d.s === "cat" ? t.cat : (d.sn || t.pet);
+    app.appendChild(el("div", "avatar", d.s === "dog" ? "🐶" : d.s === "cat" ? "🐱" : "🐾"));
+    app.appendChild(el("h1", null, d.n || kind));
+    var sub = [kind];
+    if (d.b) sub.push(d.b);
+    if (d.y) sub.push(t.years.replace("{n}", new Date().getFullYear() - d.y));
+    app.appendChild(el("p", "sub", sub.join(" · ")));
+    app.appendChild(el("p", "note", t.found));
+    if (d.p) {
+      var a = el("a", "call", t.call + " " + d.p);
+      a.href = "tel:" + String(d.p).replace(/[^0-9+]/g, "");
+      app.appendChild(a);
+    }
+    var card = el("div", "card");
+    row(card, t.owner, d.o);
+    row(card, t.area, d.r);
+    row(card, t.allergies, d.a);
+    row(card, t.meds, d.m);
+    row(card, t.vet, [d.c, d.cp].filter(Boolean).join(" · "));
+    if (Array.isArray(d.x) && d.x.length) {
+      row(card, t.vaccines, d.x.map(function (v) { return v[0] + " " + v[1]; }).join("\n"));
+    }
+    if (card.childNodes.length) app.appendChild(card);
+    app.appendChild(el("p", "note", t.note));
+    var foot = el("p", "foot");
+    var link = el("a", null, t.made);
+    link.href = "https://martinlo0911.github.io/";
+    foot.appendChild(link);
+    app.appendChild(foot);
+  }
+
+  var hash = location.hash.slice(1);
+  if (!hash || typeof DecompressionStream === "undefined") { fail(); return; }
+  decode(hash).then(render).catch(fail);
+})();
+</script>
+</body>
+</html>
