@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ZHAOYANG LU — iPhone apps</title>
-<meta name="description" content="Small iPhone apps, made with care: Hakobox and CantoFamily.">
+<meta name="description" content="Small iPhone apps, made with care: Hakobox, CantoFamily and Voltane.">
 <link rel="stylesheet" href="style.css">
 <style>
 /* Homepage only (06/Nov/2026, design A). Support pages keep style.css alone. */
@@ -35,7 +35,11 @@ main.home { max-width: 1040px; padding-top: 28px; }
 .app .kind { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
 .app .desc { margin: 0; }
 .app ul { margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.8; }
-.app .links { display: flex; gap: 18px; flex-wrap: wrap; margin-top: auto; font-size: 15px; }
+.app .links { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; margin-top: auto; font-size: 15px; }
+.store { display: inline-flex; min-height: 44px; align-items: center; }
+.store img { display: block; height: 44px; width: auto; }
+.store-text, .store.noimg picture { display: none; }
+.store.noimg .store-text { display: inline; }
 .foot { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 </style>
 </head>
@@ -78,6 +82,13 @@ main.home { max-width: 1040px; padding-top: 28px; }
         <li data-t="hako3">In English, Japanese, German and Chinese</li>
       </ul>
       <p class="links">
+        <a class="store" href="https://apps.apple.com/app/id6823925220" aria-label="Hakobox: Download on the App Store">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/white/en-us?size=250x83">
+            <img src="https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" height="44" onerror="this.closest('a').classList.add('noimg')">
+          </picture>
+          <span class="store-text" data-t="storeText">Download on the App Store</span>
+        </a>
         <a href="hakobox/" data-t="support">Support</a>
         <a href="hakobox/privacy.html" data-t="privacy">Privacy Policy</a>
       </p>
@@ -98,8 +109,42 @@ main.home { max-width: 1040px; padding-top: 28px; }
         <li data-t="canto3">Browse every term</li>
       </ul>
       <p class="links">
+        <a class="store" href="https://apps.apple.com/app/id6823561918" aria-label="CantoFamily: Download on the App Store">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/white/en-us?size=250x83">
+            <img src="https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" height="44" onerror="this.closest('a').classList.add('noimg')">
+          </picture>
+          <span class="store-text" data-t="storeText">Download on the App Store</span>
+        </a>
         <a href="cantofamily/" data-t="support">Support</a>
         <a href="cantofamily/privacy.html" data-t="privacy">Privacy Policy</a>
+      </p>
+    </article>
+
+    <article class="app">
+      <div class="app-head">
+        <img src="images/voltane.png" alt="">
+        <div>
+          <h2><a href="voltane/">Voltane</a></h2>
+          <p class="kind" data-t="voltKind">Fuel &amp; EV Tracker</p>
+        </div>
+      </div>
+      <p class="desc" data-t="voltDesc">Track fuel fill-ups and EV charging in one place.</p>
+      <ul>
+        <li data-t="volt1">Log fuel and charging costs</li>
+        <li data-t="volt2">See consumption and spending trends</li>
+        <li data-t="volt3">Find nearby gas stations and EV chargers</li>
+      </ul>
+      <p class="links">
+        <a class="store" href="https://apps.apple.com/app/id6823919864" aria-label="Voltane: Download on the App Store">
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/white/en-us?size=250x83">
+            <img src="https://tools.applemarketingtools.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="Download on the App Store" height="44" onerror="this.closest('a').classList.add('noimg')">
+          </picture>
+          <span class="store-text" data-t="storeText">Download on the App Store</span>
+        </a>
+        <a href="voltane/" data-t="support">Support</a>
+        <a href="voltane/privacy.html" data-t="privacy">Privacy Policy</a>
       </p>
     </article>
   </section>
@@ -116,27 +161,42 @@ main.home { max-width: 1040px; padding-top: 28px; }
 // English is written in the page itself, so it also shows without JavaScript.
 var TEXT = {
   zh: {
+    voltKind: "入油及充電記錄",
+    voltDesc: "集中記錄入油和充電開支。",
+    volt1: "記錄油費及充電費",
+    volt2: "查看能耗及開支趨勢",
+    volt3: "尋找附近的油站及充電站",
     h1: '用心製作的 iPhone App', sub: '簡單易用，資料留在你的 iPhone。',
     chip1: '毋須註冊', chip2: '資料留在 iPhone', chip3: '免費下載',
-    support: '支援', privacy: '私隱政策', ask: '有問題或建議？歡迎電郵：',
+    support: '支援', privacy: '私隱政策', storeText: '在 App Store 下載', ask: '有問題或建議？歡迎電郵：',
     hakoKind: '記賬及預算', hakoDesc: '按戶口及分類記錄收支和預算。',
     hako1: '多種貨幣，自動換算總額', hako2: '每月預算，一眼看到剩餘', hako3: '支援中文、English、日本語、Deutsch',
     cantoName: '叫乜好', cantoKind: '廣東話親戚稱呼', cantoDesc: '廣東話親戚稱呼計算機，附粵拼及讀音。',
     canto1: '輸入關係，即知稱呼', canto2: '粵拼及讀音', canto3: '瀏覽所有稱呼'
   },
   ja: {
+    voltKind: "給油・充電記録",
+    voltDesc: "給油と充電の記録をひとまとめに。",
+    volt1: "燃料代と充電料金を記録",
+    volt2: "燃費・電費と出費の推移を確認",
+    volt3: "近くのガソリンスタンドや充電スポットを検索",
     h1: 'ていねいに作った、小さな iPhone アプリ。', sub: 'シンプルで使いやすく、データはあなたの iPhone に保存されます。',
     chip1: '登録不要', chip2: 'データは iPhone に保存', chip3: '無料ダウンロード',
-    support: 'サポート', privacy: 'プライバシーポリシー', ask: 'ご質問・ご意見はメールで：',
+    support: 'サポート', privacy: 'プライバシーポリシー', storeText: 'App Store からダウンロード', ask: 'ご質問・ご意見はメールで：',
     hakoKind: '家計簿・予算', hakoDesc: '口座とカテゴリごとに、支出と予算を記録。',
     hako1: 'すべての通貨を、ひとつの合計に', hako2: '予算の残りがひと目でわかる', hako3: '日本語・英語・ドイツ語・中国語に対応',
     cantoName: 'CantoFamily', cantoKind: '広東語の親族呼称', cantoDesc: '親戚の呼び方を広東語で調べられます。粤拼（ジュッピン）と発音つき。',
     canto1: '関係を入力するだけで呼び方がわかる', canto2: '粤拼と発音', canto3: 'すべての呼称を一覧表示'
   },
   de: {
+    voltKind: "Tank- und Ladeprotokoll",
+    voltDesc: "Tank- und Ladevorgänge an einem Ort erfassen.",
+    volt1: "Tank- und Ladekosten erfassen",
+    volt2: "Verbrauch und Ausgaben im Zeitverlauf sehen",
+    volt3: "Tankstellen und Ladestationen in der Nähe finden",
     h1: 'Kleine iPhone-Apps, mit Sorgfalt gemacht.', sub: 'Einfach zu bedienen. Deine Daten bleiben auf deinem iPhone.',
     chip1: 'Ohne Registrierung', chip2: 'Daten bleiben auf dem iPhone', chip3: 'Kostenlos laden',
-    support: 'Support', privacy: 'Datenschutzvereinbarung', ask: 'Fragen oder Ideen? Schreib uns:',
+    support: 'Support', privacy: 'Datenschutzvereinbarung', storeText: 'Laden im App Store', ask: 'Fragen oder Ideen? Schreib uns:',
     hakoKind: 'Haushaltsbuch & Budget', hakoDesc: 'Ausgaben und Budgets nach Konto und Kategorie erfassen.',
     hako1: 'Alle Währungen, eine Summe', hako2: 'Budgets zeigen, was übrig ist', hako3: 'Auf Deutsch, Englisch, Japanisch und Chinesisch',
     cantoName: 'CantoFamily', cantoKind: 'Kantonesische Verwandtschaftsbegriffe', cantoDesc: 'Wie nennt man Verwandte auf Kantonesisch? Mit Jyutping und Aussprache.',
@@ -144,6 +204,9 @@ var TEXT = {
   }
 };
 var HTML_LANG = { en: 'en', zh: 'zh-HK', ja: 'ja', de: 'de' };
+// Apple's own "Download on the App Store" badge, in the page's language (06/Nov/2026).
+var BADGE_LANG = { en: 'en-us', zh: 'zh-hk', ja: 'ja-jp', de: 'de-de' };
+var BADGE_ALT = { en: 'Download on the App Store', zh: '在 App Store 下載', ja: 'App Store からダウンロード', de: 'Laden im App Store' };
 var nodes = document.querySelectorAll('[data-t]');
 var english = [];
 for (var i = 0; i < nodes.length; i++) english.push(nodes[i].textContent);
@@ -154,6 +217,12 @@ function apply(lang) {
     nodes[i].textContent = t ? t[nodes[i].getAttribute('data-t')] : english[i];
   }
   document.documentElement.lang = HTML_LANG[lang];
+  var badges = document.querySelectorAll('.store img, .store source');
+  for (var b = 0; b < badges.length; b++) {
+    var attr = badges[b].tagName === 'IMG' ? 'src' : 'srcset';
+    badges[b].setAttribute(attr, badges[b].getAttribute(attr).replace(/\/[a-z]{2}-[a-z]{2}\?/, '/' + BADGE_LANG[lang] + '?'));
+    if (badges[b].tagName === 'IMG') badges[b].alt = BADGE_ALT[lang];
+  }
   var buttons = document.querySelectorAll('.langs button');
   for (var j = 0; j < buttons.length; j++) {
     buttons[j].setAttribute('aria-pressed', buttons[j].getAttribute('data-lang') === lang ? 'true' : 'false');
